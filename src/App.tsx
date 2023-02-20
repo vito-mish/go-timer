@@ -5,6 +5,17 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
+import styled from 'styled-components';
+import {
+  border,
+  color,
+  compose,
+  flexbox,
+  layout,
+  position,
+  space,
+  system,
+} from 'styled-system';
 
 enum SCREENS {
   TIMER = 'timer',
@@ -22,21 +33,22 @@ type RootStackParamList = {
 type Props = NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>;
 const TimerScreen = ({navigation}: Props) => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <CenterView>
       <Text>Home Screen</Text>
       <Button
         title="Go to Details"
         onPress={() => navigation.navigate(SCREENS.SETTINGS)}
       />
-    </View>
+    </CenterView>
   );
 };
 
 const SettingsScreen = () => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <CenterView>
       <Text>Details Screen</Text>
-    </View>
+      <Box width={50} height={50} bg="#228877" />
+    </CenterView>
   );
 };
 
@@ -54,3 +66,16 @@ const App = () => {
 };
 
 export default App;
+
+const CenterView = styled(View)`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Box = styled(View)(
+  compose(position, layout, flexbox, space, color, border),
+  system({
+    borderRadius: true,
+  }),
+);
