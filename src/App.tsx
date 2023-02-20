@@ -5,17 +5,9 @@ import {
 } from '@react-navigation/native-stack';
 import * as React from 'react';
 import {Button, Text, View} from 'react-native';
-import styled from 'styled-components';
-import {
-  border,
-  color,
-  compose,
-  flexbox,
-  layout,
-  position,
-  space,
-  system,
-} from 'styled-system';
+import styled from 'styled-components/native';
+
+import {Box} from './components';
 
 enum SCREENS {
   TIMER = 'timer',
@@ -72,10 +64,3 @@ const CenterView = styled(View)`
   align-items: center;
   justify-content: center;
 `;
-
-const Box = styled(View)(
-  compose(position, layout, flexbox, space, color, border),
-  system({
-    borderRadius: true,
-  }),
-);
