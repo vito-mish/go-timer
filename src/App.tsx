@@ -1,10 +1,10 @@
-import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {View, Text, Button} from 'react-native';
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
+import * as React from 'react';
+import {Button, Text, View} from 'react-native';
 import styled from 'styled-components';
 import {
   border,
