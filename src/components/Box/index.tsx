@@ -1,32 +1,23 @@
-import React, {forwardRef, ForwardRefRenderFunction} from 'react';
-import {TouchableOpacity as RNTouchable, View as RNView} from 'react-native';
-import styled from 'styled-components/native';
-import {
-  border,
-  color,
-  compose,
-  flexbox,
-  layout,
-  position,
-  space,
-  system,
-} from 'styled-system';
+import React, {forwardRef, ForwardRefRenderFunction} from 'react'
+import {TouchableOpacity as RNTouchable, View as RNView} from 'react-native'
+import styled from 'styled-components/native'
+import {border, color, compose, flexbox, layout, position, space, system} from 'styled-system'
 
-import {BoxProps} from './interfaces';
-import Touchable from './Touchable';
+import {BoxProps} from './interfaces'
+import Touchable from './Touchable'
 
 const NonInteractiveView = styled(RNView)(
   compose(position, layout, flexbox, space, color, border),
   system({
     borderRadius: true,
   }),
-);
+)
 const InteractiveView = styled(Touchable)(
   compose(position, layout, flexbox, space, color, border),
   system({
     borderRadius: true,
   }),
-);
+)
 
 const _Box: ForwardRefRenderFunction<RNView | RNTouchable, BoxProps> = (
   {row, wrap, absoluteFilled, xalign, yalign, onPress, ...rest},
@@ -44,19 +35,12 @@ const _Box: ForwardRefRenderFunction<RNView | RNTouchable, BoxProps> = (
     bottom: absoluteFilled ? 0 : undefined,
     left: absoluteFilled ? 0 : undefined,
     right: absoluteFilled ? 0 : undefined,
-  };
+  }
 
   if (onPress) {
-    return (
-      <InteractiveView
-        {...attrs}
-        {...rest}
-        ref={ref as React.Ref<RNTouchable>}
-        onPress={onPress}
-      />
-    );
+    return <InteractiveView {...attrs} {...rest} ref={ref as React.Ref<RNTouchable>} onPress={onPress} />
   }
-  return <NonInteractiveView {...attrs} {...rest} ref={ref} />;
-};
+  return <NonInteractiveView {...attrs} {...rest} ref={ref} />
+}
 
-export const Box = forwardRef(_Box);
+export const Box = forwardRef(_Box)

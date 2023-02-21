@@ -1,13 +1,10 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
-import * as React from 'react';
-import {Button, Text, View} from 'react-native';
-import styled from 'styled-components/native';
+import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
+import * as React from 'react'
+import {Button, Text, View} from 'react-native'
+import styled from 'styled-components/native'
 
-import {Box} from './components';
+import {Box} from './components'
 
 enum SCREENS {
   TIMER = 'timer',
@@ -15,25 +12,22 @@ enum SCREENS {
 }
 
 type RootStackParamList = {
-  [SCREENS.TIMER]: undefined;
-  [SCREENS.SETTINGS]: undefined;
+  [SCREENS.TIMER]: undefined
+  [SCREENS.SETTINGS]: undefined
   // Profile: {userId: string};
-};
+}
 
 // type ProfileScreenProps = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
-type Props = NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>;
+type Props = NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>
 const TimerScreen = ({navigation}: Props) => {
   return (
     <CenterView>
       <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate(SCREENS.SETTINGS)}
-      />
+      <Button title="Go to Details" onPress={() => navigation.navigate(SCREENS.SETTINGS)} />
     </CenterView>
-  );
-};
+  )
+}
 
 const SettingsScreen = () => {
   return (
@@ -41,10 +35,10 @@ const SettingsScreen = () => {
       <Text>Details Screen</Text>
       <Box width={50} height={50} bg="#228877" />
     </CenterView>
-  );
-};
+  )
+}
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const App = () => {
   return (
@@ -54,13 +48,13 @@ const App = () => {
         <Stack.Screen name={SCREENS.SETTINGS} component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}
 
-export default App;
+export default App
 
 const CenterView = styled(View)`
   flex: 1;
   align-items: center;
   justify-content: center;
-`;
+`

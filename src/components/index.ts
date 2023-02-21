@@ -1,1 +1,2 @@
-export {Box} from './Box';
+export {Box} from './Box'
+export * from './Text'

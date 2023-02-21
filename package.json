@@ -12,7 +12,9 @@
     "xcrun:simctl-list-devices": "xcrun simctl list devices",
     "adb:devices": "adb devices",
     "avd:list": "emulator -list-avds",
-    "avd:turn-on-device": "emulator -avd Pixel_6_API_31"
+    "avd:turn-on-device": "emulator -avd Pixel_6_API_31",
+    "eslint:fix": "eslint src --fix",
+    "eslint:check": "eslint src"
   },
   "dependencies": {
     "@react-navigation/native": "6.1.4",
