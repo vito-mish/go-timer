@@ -3,8 +3,10 @@ import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigat
 import * as React from 'react'
 import {Button, Text, View} from 'react-native'
 import styled from 'styled-components/native'
+import {ThemeProvider} from 'styled-components/native'
 
-import {Box} from './components'
+import {Body3, Body4, Box, ErrorText} from './components'
+import {theme} from './styles/theme'
 
 enum SCREENS {
   TIMER = 'timer',
@@ -24,6 +26,9 @@ const TimerScreen = ({navigation}: Props) => {
   return (
     <CenterView>
       <Text>Home Screen</Text>
+      <ErrorText>error</ErrorText>
+      <Body3>Body3</Body3>
+      <Body4>Body4</Body4>
       <Button title="Go to Details" onPress={() => navigation.navigate(SCREENS.SETTINGS)} />
     </CenterView>
   )
@@ -42,12 +47,14 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name={SCREENS.TIMER} component={TimerScreen} />
-        <Stack.Screen name={SCREENS.SETTINGS} component={SettingsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name={SCREENS.TIMER} component={TimerScreen} />
+          <Stack.Screen name={SCREENS.SETTINGS} component={SettingsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   )
 }
 

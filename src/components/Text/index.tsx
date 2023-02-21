@@ -57,12 +57,12 @@ export const OneLineText: FC<TextProps> = props => <Text numberOfLines={1} {...p
 export const ErrorText: FC<TextProps> = props => <Text size={2} color="error.0" {...props} />
 
 // UI kit
-export const Heading1: FC<TextProps> = props => <Text size={7} lineHeight={34} letterSpacing={1} bold {...props} />
-export const Heading2: FC<TextProps> = props => <Text size={6} lineHeight={28} bold {...props} />
-export const Body1: FC<TextProps> = props => <Text size={5} lineHeight={26} {...props} />
-export const Body2: FC<TextProps> = props => <Text size={4} lineHeight={24} {...props} />
+export const Heading1: FC<TextProps> = props => <Text size={7} bold letterSpacing={1} {...props} />
+export const Heading2: FC<TextProps> = props => <Text size={6} bold {...props} />
+export const Body1: FC<TextProps> = props => <Text size={5} {...props} />
+export const Body2: FC<TextProps> = props => <Text size={4} {...props} />
 
-export const Body3: FC<TextProps> = props => <Text size={3} lineHeight={22} {...props} />
-export const Body4: FC<TextProps> = props => <Text size={2} lineHeight={18} {...props} />
-export const Body5: FC<TextProps> = props => <Text size={1} lineHeight={16} {...props} />
-export const Body6: FC<TextProps> = props => <Text size={0} lineHeight={12} {...props} />
+export const Body3: FC<TextProps> = props => <Text size={3} {...props} />
+export const Body4: FC<TextProps> = props => <Text size={2} {...props} />
+export const Body5: FC<TextProps> = props => <Text size={1} {...props} />
+export const Body6: FC<TextProps> = props => <Text size={0} {...props} />
