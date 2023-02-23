@@ -1,11 +1,13 @@
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
 import * as React from 'react'
+import {useTranslation} from 'react-i18next'
 import {Button} from 'react-native'
 import styled from 'styled-components/native'
 import {ThemeProvider} from 'styled-components/native'
 
 import {Body3, Body4, Box, ErrorText, Images, Text} from './components'
+import {useAppInit} from './hooks'
 import {theme} from './styles/theme'
 
 enum SCREENS {
@@ -23,9 +25,10 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>
 const TimerScreen = ({navigation}: Props) => {
+  const {t} = useTranslation()
   return (
     <CenterView>
-      <Text>Home Screen</Text>
+      <Text>{t('settings_option_basic_time')}</Text>
       <ErrorText>error</ErrorText>
       <Body3>Body3</Body3>
       <Body4>Body4</Body4>
@@ -50,6 +53,12 @@ const SettingsScreen = () => {
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const App = () => {
+  const {isInit} = useAppInit()
+
+  if (!isInit) {
+    return null
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
