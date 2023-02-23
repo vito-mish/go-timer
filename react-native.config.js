@@ -4,4 +4,4 @@ module.exports = {
       sourceDir: './ios',
     },
   },
-};
+}
