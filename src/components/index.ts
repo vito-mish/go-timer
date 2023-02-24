@@ -1,4 +1,5 @@
 export {Box} from './Box'
+export {Button} from './Button'
 export * from './Image'
 export {ScreenBox} from './ScreenBox'
 export * from './Text'
