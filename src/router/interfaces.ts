@@ -1,8 +1,8 @@
 import {NativeStackNavigationOptions, NativeStackScreenProps} from '@react-navigation/native-stack'
 import React from 'react'
 
-import {SettingsScreen} from '../screens/Settings'
-import {TimerScreen} from '../screens/Timer'
+import {SettingsScreen} from '../screens/SettingsScreen'
+import {TimerScreen} from '../screens/TimerScreen'
 
 export enum SCREENS {
   TIMER = 'timer',
