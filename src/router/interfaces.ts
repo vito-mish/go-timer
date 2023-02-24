@@ -1,3 +1,6 @@
+import {NativeStackNavigationOptions, NativeStackScreenProps} from '@react-navigation/native-stack'
+import React from 'react'
+
 import {SettingsScreen} from '../screens/Settings'
 import {TimerScreen} from '../screens/Timer'
 
@@ -12,7 +15,13 @@ export type RootStackParamList = {
   [SCREENS.SETTINGS]: undefined
 }
 
-export const screens = [
-  {name: SCREENS.TIMER, component: TimerScreen},
+interface ScreenConfig {
+  name: SCREENS
+  component: React.FC<NativeStackScreenProps<RootStackParamList, any>>
+  options?: NativeStackNavigationOptions
+}
+
+export const screens: ScreenConfig[] = [
+  {name: SCREENS.TIMER, component: TimerScreen, options: {headerShown: false}},
   {name: SCREENS.SETTINGS, component: SettingsScreen},
 ]
