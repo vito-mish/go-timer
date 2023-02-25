@@ -2,7 +2,7 @@ import React, {FC} from 'react'
 import styled from 'styled-components/native'
 
 import {theme} from '../../styles/theme'
-import {Box} from '../Box'
+import {ShadowView} from '../ShadowView'
 import {Body1} from '../Text'
 
 interface Props {
@@ -18,12 +18,12 @@ export const Button: FC<Props> = ({onPress, title}) => {
   )
 }
 
-const Container = styled(Box)`
+const Container = styled(ShadowView)`
   justify-content: center;
   align-items: center;
   align-self: stretch;
-  height: 56;
-  border-radius: 10;
+  height: 56px;
+  border-radius: 10px;
   background-color: ${theme.colors.primary[0]};
   padding-horizontal: ${theme.space[4]};
 `

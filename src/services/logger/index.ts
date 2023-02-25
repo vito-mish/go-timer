@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {isDebug} from '../../config/appConfig'
 import dateUtil from '../../utils/dateUtil'
 

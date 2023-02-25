@@ -5,6 +5,7 @@ module.exports = {
   rules: {
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'no-console': 'error',
     semi: 'off',
     curly: 'off',
   },
