@@ -30,7 +30,7 @@ export interface BoxProps extends ViewProps, FlexStyle {
   children?: React.ReactNode
   onPress?: () => void
   width?: number | string
-  height?: number
+  height?: number | string
   bg?: string
   borderWidth?: number
   borderColor?: string

@@ -1,11 +1,24 @@
-import {NavigationContainer} from '@react-navigation/native'
+import {NavigationContainer, useNavigation} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import React from 'react'
+import {HeaderBackButtonProps} from '@react-navigation/native-stack/lib/typescript/src/types'
+import React, {FC} from 'react'
 import {useTranslation} from 'react-i18next'
+import styled from 'styled-components/native'
 
+import {Box, Images} from '../components'
 import {RootStackParamList, SCREENS, screens} from './interfaces'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
+
+const HeaderLeft: FC<HeaderBackButtonProps> = props => {
+  const navigation = useNavigation()
+  if (!props.canGoBack) return <Box />
+  return (
+    <HeaderLeftBox onPress={() => navigation.goBack()}>
+      <Images.IconBack width={16} />
+    </HeaderLeftBox>
+  )
+}
 
 export const Router = () => {
   const {t} = useTranslation()
@@ -22,6 +35,7 @@ export const Router = () => {
                 ...item.options,
                 headerTitle: `${t(`${item.name}_title`)}`,
                 headerTitleAlign: 'center',
+                headerLeft: HeaderLeft,
               }}
             />
           )
@@ -30,3 +44,10 @@ export const Router = () => {
     </NavigationContainer>
   )
 }
+
+const HeaderLeftBox = styled(Box)`
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+`
