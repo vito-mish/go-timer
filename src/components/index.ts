@@ -1,6 +1,6 @@
 export {Box} from './Box'
 export {Button} from './Button'
 export * from './Image'
-export {ScreenBox} from './ScreenBox'
+export * from './ScreenBox'
 export {ShadowView} from './ShadowView'
 export * from './Text'

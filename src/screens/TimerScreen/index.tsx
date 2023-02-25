@@ -1,7 +1,7 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import React, {FC, useCallback, useEffect, useState} from 'react'
 
-import {ScreenBox} from '../../components'
+import {SafeAreaScreenBox} from '../../components'
 import {RootStackParamList, SCREENS} from '../../router/interfaces'
 import {AlternateButton} from './AlternateButton'
 import {ToolButtons} from './ToolButtons'
@@ -58,7 +58,7 @@ export const TimerScreen: ScreenType = () => {
   if (!isReady) return null
 
   return (
-    <ScreenBox>
+    <SafeAreaScreenBox>
       <AlternateButton
         onPress={handleTogglePlayer}
         isStart={isStart}
@@ -89,6 +89,6 @@ export const TimerScreen: ScreenType = () => {
         countdownSeconds={config.countdownSeconds}
         countdownTimes={countdownTimesWhite}
       />
-    </ScreenBox>
+    </SafeAreaScreenBox>
   )
 }

@@ -11,6 +11,7 @@ export const SettingsScreen: ScreenType = ({navigation}) => {
     <ScreenBox px={4}>
       <Text>SettingsScreen</Text>
       <Box width={50} height={50} bg="#228877" />
+      <Box flex={1} />
       <Button title="ok" onPress={() => navigation.goBack()} />
     </ScreenBox>
   )
