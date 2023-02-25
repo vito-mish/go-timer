@@ -1,30 +1,22 @@
-import {useNavigation} from '@react-navigation/native'
-import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-import React, {FC, useCallback} from 'react'
+import React, {FC} from 'react'
 import styled from 'styled-components/native'
 
 import {Box, Images} from '../../../components'
-import {RootStackParamList, SCREENS} from '../../../router/interfaces'
 
 const ICON_SIZE = 32
 
 interface Props {
+  onPressSettings: () => void
   onPressReload: () => void
   onPressTogglePlaying: () => void
   isOver: boolean
   isPlaying: boolean
 }
 
-export const ToolButtons: FC<Props> = ({onPressReload, onPressTogglePlaying, isOver, isPlaying}) => {
-  const navigation: NativeStackNavigationProp<RootStackParamList, SCREENS.TIMER> = useNavigation()
-
-  const handlePressSettings = useCallback(() => {
-    navigation.navigate(SCREENS.SETTINGS)
-  }, [navigation])
-
+export const ToolButtons: FC<Props> = ({onPressSettings, onPressReload, onPressTogglePlaying, isOver, isPlaying}) => {
   return (
     <Container>
-      <IconBox onPress={handlePressSettings}>
+      <IconBox onPress={onPressSettings}>
         <Images.IconSettings width={ICON_SIZE} />
       </IconBox>
       <IconBox onPress={onPressReload}>

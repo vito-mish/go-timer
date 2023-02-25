@@ -25,3 +25,5 @@ export const screens: ScreenConfig[] = [
   {name: SCREENS.TIMER, component: TimerScreen, options: {headerShown: false}},
   {name: SCREENS.SETTINGS, component: SettingsScreen},
 ]
+
+// const navigation: NativeStackNavigationProp<RootStackParamList, SCREENS.TIMER> = useNavigation()

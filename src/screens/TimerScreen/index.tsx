@@ -9,7 +9,7 @@ import {useStatusCenter} from './useStatusCenter'
 
 type ScreenType = FC<NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>>
 
-export const TimerScreen: ScreenType = () => {
+export const TimerScreen: ScreenType = ({navigation}) => {
   const {
     init,
     setIsPlaying,
@@ -39,6 +39,11 @@ export const TimerScreen: ScreenType = () => {
     resetStatus()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const handlePressSettings = useCallback(() => {
+    navigation.navigate(SCREENS.SETTINGS)
+    setIsPlaying(false)
+  }, [navigation, setIsPlaying])
 
   const handleTogglePlayer = useCallback(() => {
     if (isStart) {
@@ -72,6 +77,7 @@ export const TimerScreen: ScreenType = () => {
         countdownTimes={countdownTimesBlack}
       />
       <ToolButtons
+        onPressSettings={handlePressSettings}
         onPressReload={resetStatus}
         onPressTogglePlaying={handlePressTogglePlaying}
         isOver={gameStatus.isOver}
