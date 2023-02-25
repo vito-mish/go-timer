@@ -5,8 +5,20 @@ import logger from '../logger'
 const _prefix = 'go_timer_'
 let _cached: {[key: string]: unknown} = {}
 
-enum ENTITY {
+export enum ENTITY {
   LANGUAGE = 'language',
+  TIMER_CONFIG = 'timer_config',
+}
+
+export interface TimerConfig {
+  basicSeconds: number
+  countdownSeconds: number
+  countdownTimes: number
+}
+
+export type StorageValueType = {
+  [ENTITY.LANGUAGE]: string | null
+  [ENTITY.TIMER_CONFIG]: TimerConfig | null
 }
 
 const getData = (key: ENTITY): any => {
@@ -67,7 +79,7 @@ const clearAll = async (): Promise<boolean> => {
   return false
 }
 
-export default {
+export const storage = {
   ENTITY,
   getData,
   setData,

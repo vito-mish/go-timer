@@ -11,10 +11,11 @@ const ICON_SIZE = 32
 interface Props {
   onPressReload: () => void
   onPressTogglePlaying: () => void
+  isOver: boolean
   isPlaying: boolean
 }
 
-export const ToolButtons: FC<Props> = ({onPressReload, onPressTogglePlaying, isPlaying}) => {
+export const ToolButtons: FC<Props> = ({onPressReload, onPressTogglePlaying, isOver, isPlaying}) => {
   const navigation: NativeStackNavigationProp<RootStackParamList, SCREENS.TIMER> = useNavigation()
 
   const handlePressSettings = useCallback(() => {
@@ -29,7 +30,7 @@ export const ToolButtons: FC<Props> = ({onPressReload, onPressTogglePlaying, isP
       <IconBox onPress={onPressReload}>
         <Images.IconReload width={ICON_SIZE} />
       </IconBox>
-      <IconBox onPress={onPressTogglePlaying}>
+      <IconBox onPress={onPressTogglePlaying} disabled={isOver}>
         {isPlaying ? <Images.IconPause width={ICON_SIZE} /> : <Images.IconPlay width={ICON_SIZE} />}
       </IconBox>
     </Container>

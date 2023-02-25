@@ -1,26 +1,44 @@
 import React, {FC} from 'react'
 import styled from 'styled-components/native'
 
-import {Body3, Box, Text} from '../../../components'
+import {Body3, Box, Images, Text} from '../../../components'
 import {theme} from '../../../styles/theme'
+import dateUtil from '../../../utils/dateUtil'
 
 const {colors, space} = theme
 const BALL_SIZE = 32
 
 interface Props {
   onPress: () => void
+  isStart: boolean
   isBlackChess: boolean
   isBlackTurn: boolean
+  isOver: boolean
+  isWinner: boolean
   moveCount: number
+  seconds: number
+  countdownSeconds: number
+  countdownTimes: number
 }
 
-export const AlternateButton: FC<Props> = ({onPress, isBlackChess, isBlackTurn, moveCount}) => {
-  const isActive = isBlackChess === isBlackTurn
+export const AlternateButton: FC<Props> = ({
+  onPress,
+  isStart,
+  isBlackChess,
+  isBlackTurn,
+  isOver,
+  isWinner,
+  moveCount,
+  seconds,
+  countdownSeconds,
+  countdownTimes,
+}) => {
+  const isActive = !isOver && (isBlackChess === isBlackTurn || !isStart)
   return (
     <Container onPress={onPress} isBlackChess={isBlackChess} disabled={!isActive} activeOpacity={0.6}>
       <Box absoluteFilled>
         <InfoBox>
-          <Body3 color="primary.2">30s[3]</Body3>
+          <Body3 color="primary.2">{`${countdownSeconds}s[${countdownTimes}]`}</Body3>
           <Box absoluteFilled xalign="center" yalign="center">
             <Body3 color="gray.2">{moveCount}</Body3>
           </Box>
@@ -30,7 +48,9 @@ export const AlternateButton: FC<Props> = ({onPress, isBlackChess, isBlackTurn, 
           <Ball isBlackChess={isBlackChess} />
         </BallBox>
       </Box>
-      <ClockText>20:00</ClockText>
+
+      {isWinner && <Images.IconCrown width={48} />}
+      <ClockText>{dateUtil.parseSecondsToMs(seconds)}</ClockText>
     </Container>
   )
 }
