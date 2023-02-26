@@ -1,5 +1,6 @@
 export default {
   common_confirm: 'Confirm',
+  common_cancel: 'Cancel',
 
   settings_title: 'Settings',
   settings_type_timer: 'Timer Config',

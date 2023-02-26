@@ -1,18 +1,49 @@
-import {useMemo, useState} from 'react'
+import {useActionSheet} from '@expo/react-native-action-sheet'
+import {useCallback, useMemo, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
 import {images} from '../../../assets'
-import {LANGUAGE_OPTIONS} from '../../../i18n'
+import {LANGUAGE_CODES, LANGUAGE_OPTIONS, setLanguage} from '../../../i18n'
 import {defaultTimerConfig, ENTITY, storage, TimerConfig} from '../../../services'
+import {theme} from '../../../styles/theme'
 
 export const useConfigOptions = () => {
   const {t, i18n} = useTranslation()
+  const {showActionSheetWithOptions} = useActionSheet()
   const defaultConfig: TimerConfig = useMemo(() => {
     return storage.getData(ENTITY.TIMER_CONFIG) ?? {...defaultTimerConfig}
   }, [])
   const [basicSeconds, setBasicSeconds] = useState(defaultConfig.basicSeconds)
   const [countdownSeconds, setCountdownSeconds] = useState(defaultConfig.countdownSeconds)
   const [countdownTimes, setCountdownTimes] = useState(defaultConfig.countdownTimes)
+
+  const handlePressLanguage = useCallback(() => {
+    const langNames = LANGUAGE_OPTIONS.map(item => item.name)
+    const zh = langNames[0]
+    const en = langNames[1]
+    const options = [zh, en, t('common_cancel')]
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex: 2,
+        cancelButtonTintColor: theme.colors.error[0],
+      },
+      (selectedIndex?: number): void => {
+        switch (selectedIndex) {
+          case 0:
+            setLanguage(LANGUAGE_CODES.ZH)
+            break
+          case 1:
+            setLanguage(LANGUAGE_CODES.EN)
+            break
+          default:
+            break
+        }
+      },
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t])
 
   const data = useMemo(() => {
     const list = [
@@ -52,13 +83,13 @@ export const useConfigOptions = () => {
             title: t('settings_option_language'),
             value: LANGUAGE_OPTIONS.find(item => i18n.language === item.key)?.name ?? '--',
             imageSrc: images.IconEarth,
-            onPress: () => {},
+            onPress: handlePressLanguage,
           },
         ],
       },
     ]
     return list
-  }, [basicSeconds, countdownSeconds, countdownTimes, i18n.language, t])
+  }, [basicSeconds, countdownSeconds, countdownTimes, i18n.language, t, handlePressLanguage])
 
   return {data}
 }

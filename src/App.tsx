@@ -1,3 +1,4 @@
+import {ActionSheetProvider} from '@expo/react-native-action-sheet'
 import React from 'react'
 import {ThemeProvider} from 'styled-components/native'
 
@@ -14,7 +15,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router />
+      <ActionSheetProvider>
+        <Router />
+      </ActionSheetProvider>
     </ThemeProvider>
   )
 }

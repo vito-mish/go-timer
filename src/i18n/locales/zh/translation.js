@@ -1,5 +1,6 @@
 export default {
   common_confirm: '確定',
+  common_cancel: '取消',
 
   settings_title: '設定',
   settings_type_timer: '計時器設定',

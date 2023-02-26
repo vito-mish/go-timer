@@ -11,6 +11,7 @@ const useInit = () => {
   const {i18n} = useTranslation()
 
   const init = () => {
+    logger.info('ttsService init')
     const lang: LANGUAGE_CODES = i18n.language as LANGUAGE_CODES
     let langCode = ''
     switch (lang) {
