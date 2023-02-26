@@ -9,6 +9,7 @@
     "start": "react-native start",
     "start:reset-cache": "react-native start --reset-cache",
     "test": "jest",
+    "postinstall": "yarn run cp:node_modules",
     "pod:install": "npx pod-install ios",
     "generate:assets": "node ./scripts/generate-assets-import",
     "xcrun:simctl-list-devices": "xcrun simctl list devices",
@@ -17,7 +18,8 @@
     "avd:list": "emulator -list-avds",
     "avd:turn-on-device": "emulator -avd Pixel_6_API_31",
     "eslint:fix": "eslint src --fix",
-    "eslint:check": "eslint src"
+    "eslint:check": "eslint src",
+    "cp:node_modules": "cp -rf ./__node_modules__/* ./node_modules"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.17.11",
