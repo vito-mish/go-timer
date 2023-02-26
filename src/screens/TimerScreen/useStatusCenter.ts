@@ -2,9 +2,11 @@ import {useCallback, useEffect, useRef, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
 import {ENTITY, storage, StorageValueType, ttsService} from '../../services'
+import {useSoundPlayer} from './useSoundPlayer'
 
 export const useStatusCenter = () => {
   const {t} = useTranslation()
+  const {playClick} = useSoundPlayer()
   const [config, setConfig] = useState({
     basicSeconds: 1200,
     countdownSeconds: 30,
@@ -39,6 +41,8 @@ export const useStatusCenter = () => {
         ttsService.speak(t('tts_countdown_info_black', {seconds: config.countdownSeconds, times: countdownTimesBlack}))
       } else if (!isBTurn && hasEnteredCountdownWhite) {
         ttsService.speak(t('tts_countdown_info_white', {seconds: config.countdownSeconds, times: countdownTimesWhite}))
+      } else {
+        playClick()
       }
     },
     [
@@ -47,6 +51,7 @@ export const useStatusCenter = () => {
       countdownTimesWhite,
       hasEnteredCountdownBlack,
       hasEnteredCountdownWhite,
+      playClick,
       t,
     ],
   )
