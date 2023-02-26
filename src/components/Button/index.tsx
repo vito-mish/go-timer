@@ -2,17 +2,18 @@ import React, {FC} from 'react'
 import styled from 'styled-components/native'
 
 import {theme} from '../../styles/theme'
+import {BoxProps} from '../Box/interfaces'
 import {ShadowView} from '../ShadowView'
 import {Body1} from '../Text'
 
-interface Props {
+interface Props extends BoxProps {
   title: string
   onPress: () => void
 }
 
-export const Button: FC<Props> = ({onPress, title}) => {
+export const Button: FC<Props> = ({onPress, title, ...args}) => {
   return (
-    <Container onPress={onPress}>
+    <Container {...args} onPress={onPress}>
       <Body1 color="gray.5">{title}</Body1>
     </Container>
   )

@@ -1,9 +1,13 @@
 export default {
   common_confirm: 'Confirm',
+
   settings_title: 'Settings',
+  settings_type_timer: 'Timer Config',
+  settings_type_other: 'Other Config',
   settings_option_basic_time: 'Basic time',
   settings_option_countdown_seconds: 'Countdown seconds',
   settings_option_countdown_times: 'Countdown times',
+  settings_option_language: 'Language',
 
   tts_first_play_black: 'Black starts the clock.',
   tts_first_play_white: 'White starts the clock.',

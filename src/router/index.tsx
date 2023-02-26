@@ -15,7 +15,7 @@ const HeaderLeft: FC<HeaderBackButtonProps> = props => {
   if (!props.canGoBack) return <Box />
   return (
     <HeaderLeftBox onPress={() => navigation.goBack()}>
-      <Images.IconBack width={16} />
+      <Images.IconBack width={12} />
     </HeaderLeftBox>
   )
 }

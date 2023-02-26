@@ -21,6 +21,12 @@ export type StorageValueType = {
   [ENTITY.TIMER_CONFIG]: TimerConfig | null
 }
 
+export const defaultTimerConfig = {
+  basicSeconds: 1200,
+  countdownSeconds: 30,
+  countdownTimes: 3,
+}
+
 const getData = (key: ENTITY): any => {
   return _cached[key]
 }

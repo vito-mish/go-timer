@@ -20,6 +20,7 @@ export interface BoxProps extends ViewProps, FlexStyle {
   mb?: number
   mr?: number
   ml?: number
+  mx?: number
   px?: number
   py?: number
   pt?: number

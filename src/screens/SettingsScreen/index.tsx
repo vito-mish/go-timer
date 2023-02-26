@@ -1,18 +1,30 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import React, {FC} from 'react'
+import {useTranslation} from 'react-i18next'
+import styled from 'styled-components/native'
 
-import {Box, Button, ScreenBox, Text} from '../../components'
+import {Body3, Button, ScreenBox} from '../../components'
+import {config} from '../../config/appConfig'
 import {RootStackParamList, SCREENS} from '../../router/interfaces'
+import {theme} from '../../styles/theme'
+import {OptionList} from './OptionList'
 
 type ScreenType = FC<NativeStackScreenProps<RootStackParamList, SCREENS.SETTINGS>>
 
 export const SettingsScreen: ScreenType = ({navigation}) => {
+  const {t} = useTranslation()
+
   return (
-    <ScreenBox px={4}>
-      <Text>SettingsScreen</Text>
-      <Box width={50} height={50} bg="#228877" />
-      <Box flex={1} />
-      <Button title="ok" onPress={() => navigation.goBack()} />
+    <ScreenBox>
+      <OptionList />
+      <AppText>{`v${config.appVersion}`}</AppText>
+      <Button mx={4} title={t('common_confirm')} onPress={() => navigation.goBack()} />
     </ScreenBox>
   )
 }
+
+const AppText = styled(Body3)`
+  text-align: center;
+  color: ${theme.colors.gray[1]};
+  margin-bottom: ${theme.space[3]};
+`
