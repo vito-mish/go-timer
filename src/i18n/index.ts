@@ -48,6 +48,7 @@ export const initI18n = () => {
 export const setupI18n = async () => {
   const language = storage.getData(storage.ENTITY.LANGUAGE)
   logger.info('setupI18n language', language)
+  // await i18n.changeLanguage(LANGUAGE_CODES.ZH) // ! for debug
   if (language) {
     await i18n.changeLanguage(language)
   }

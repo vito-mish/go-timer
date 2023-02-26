@@ -22,9 +22,11 @@ export const ToolButtons: FC<Props> = ({onPressSettings, onPressReload, onPressT
       <IconBox onPress={onPressReload}>
         <Images.IconReload width={ICON_SIZE} />
       </IconBox>
-      <IconBox onPress={onPressTogglePlaying} disabled={isOver}>
-        {isPlaying ? <Images.IconPause width={ICON_SIZE} /> : <Images.IconPlay width={ICON_SIZE} />}
-      </IconBox>
+      {!isOver && (
+        <IconBox onPress={onPressTogglePlaying} disabled={isOver}>
+          {isPlaying ? <Images.IconPause width={ICON_SIZE} /> : <Images.IconPlay width={ICON_SIZE} />}
+        </IconBox>
+      )}
     </Container>
   )
 }

@@ -3,6 +3,7 @@ import React, {FC, useCallback, useEffect, useState} from 'react'
 
 import {SafeAreaScreenBox} from '../../components'
 import {RootStackParamList, SCREENS} from '../../router/interfaces'
+import {ttsService} from '../../services'
 import {AlternateButton} from './AlternateButton'
 import {ToolButtons} from './ToolButtons'
 import {useStatusCenter} from './useStatusCenter'
@@ -14,6 +15,9 @@ export const TimerScreen: ScreenType = ({navigation}) => {
     init,
     setIsPlaying,
     setIsBlackTurn,
+    setIsStart,
+    setSecondsBlack,
+    setSecondsWhite,
     config,
     secondsBlack,
     secondsWhite,
@@ -21,11 +25,13 @@ export const TimerScreen: ScreenType = ({navigation}) => {
     countdownTimesWhite,
     isPlaying,
     isBlackTurn,
+    isStart,
+    hasEnteredCountdownBlack,
+    hasEnteredCountdownWhite,
     gameStatus,
   } = useStatusCenter()
 
   const [isReady, setIsReady] = useState(false)
-  const [isStart, setIsStart] = useState(false)
   const [moveCount, setMoveCount] = useState(1)
 
   const resetStatus = useCallback(() => {
@@ -33,6 +39,8 @@ export const TimerScreen: ScreenType = ({navigation}) => {
     setMoveCount(1)
     setIsStart(false)
     setIsReady(true)
+    ttsService.stop()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [init])
 
   useEffect(() => {
@@ -43,6 +51,7 @@ export const TimerScreen: ScreenType = ({navigation}) => {
   const handlePressSettings = useCallback(() => {
     navigation.navigate(SCREENS.SETTINGS)
     setIsPlaying(false)
+    ttsService.stop()
   }, [navigation, setIsPlaying])
 
   const handleTogglePlayer = useCallback(() => {
@@ -52,13 +61,24 @@ export const TimerScreen: ScreenType = ({navigation}) => {
     } else {
       setIsStart(true)
     }
+    if (isBlackTurn && hasEnteredCountdownBlack) {
+      setSecondsBlack(config.countdownSeconds)
+    } else if (!isBlackTurn && hasEnteredCountdownWhite) {
+      setSecondsWhite(config.countdownSeconds)
+    }
     setIsPlaying(true)
-  }, [isStart, setIsBlackTurn, setIsPlaying])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config.countdownSeconds, hasEnteredCountdownBlack, hasEnteredCountdownWhite, isBlackTurn, isStart])
 
   const handlePressTogglePlaying = useCallback(() => {
     !isStart && setIsStart(true)
-    setIsPlaying(prev => !prev)
-  }, [isStart, setIsPlaying])
+    setIsPlaying(prev => {
+      const nextState = !prev
+      !nextState && ttsService.stop()
+      return nextState
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isStart])
 
   if (!isReady) return null
 

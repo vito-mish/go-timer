@@ -1,14 +1,16 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
+import {useTranslation} from 'react-i18next'
 
-import {ENTITY, storage, StorageValueType} from '../../services'
+import {ENTITY, storage, StorageValueType, ttsService} from '../../services'
 
 export const useStatusCenter = () => {
+  const {t} = useTranslation()
   const [config, setConfig] = useState({
     basicSeconds: 1200,
     countdownSeconds: 30,
     countdownTimes: 3,
-    // basicSeconds: 3, // ! for debug
-    // countdownSeconds: 5, // ! for debug
+    // basicSeconds: 10, // ! for debug
+    // countdownSeconds: 10, // ! for debug
     // countdownTimes: 2, // ! for debug
   })
   const [secondsBlack, setSecondsBlack] = useState(config.basicSeconds)
@@ -19,8 +21,35 @@ export const useStatusCenter = () => {
   const [hasEnteredCountdownWhite, setHasEnteredCountdownWhite] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isBlackTurn, setIsBlackTurn] = useState(true)
+  const [isStart, setIsStart] = useState(false)
   const [gameStatus, setGameStatus] = useState({isOver: false, isBlackWin: false})
   const timer = useRef<number | null>(null)
+  const isFirstFireBlack = useRef(false)
+  const isFirstFireWhite = useRef(false)
+
+  const playTurnMeVoice = useCallback(
+    (isBTurn: boolean) => {
+      if (isBTurn && !isFirstFireBlack.current) {
+        isFirstFireBlack.current = true
+        ttsService.speak(t('tts_first_play_black'))
+      } else if (!isBTurn && !isFirstFireWhite.current) {
+        isFirstFireWhite.current = true
+        ttsService.speak(t('tts_first_play_white'))
+      } else if (isBTurn && hasEnteredCountdownBlack) {
+        ttsService.speak(t('tts_countdown_info_black', {seconds: config.countdownSeconds, times: countdownTimesBlack}))
+      } else if (!isBTurn && hasEnteredCountdownWhite) {
+        ttsService.speak(t('tts_countdown_info_white', {seconds: config.countdownSeconds, times: countdownTimesWhite}))
+      }
+    },
+    [
+      config.countdownSeconds,
+      countdownTimesBlack,
+      countdownTimesWhite,
+      hasEnteredCountdownBlack,
+      hasEnteredCountdownWhite,
+      t,
+    ],
+  )
 
   useEffect(() => {
     // ! Check if the game is over, if not, add seconds.
@@ -30,12 +59,19 @@ export const useStatusCenter = () => {
         setSecondsBlack(config.countdownSeconds)
         if (hasEnteredCountdownBlack) {
           setCountdownTimesBlack(nextTimes)
+          nextTimes === 1 && ttsService.speak(t('tts_countdown_last_black'))
+          ttsService.speak(t('tts_countdown_info_black', {seconds: config.countdownSeconds, times: nextTimes}))
         } else {
           setHasEnteredCountdownBlack(true)
+          ttsService.speak(t('tts_countdown_start_black'))
+          ttsService.speak(
+            t('tts_countdown_info_black', {seconds: config.countdownSeconds, times: countdownTimesBlack}),
+          )
         }
       } else {
         setGameStatus({isOver: true, isBlackWin: false})
         setIsPlaying(false)
+        ttsService.speak(t('tts_game_over_black'))
       }
     } else if (secondsWhite === 0) {
       const nextTimes = countdownTimesWhite - 1
@@ -43,28 +79,39 @@ export const useStatusCenter = () => {
         setSecondsWhite(config.countdownSeconds)
         if (hasEnteredCountdownWhite) {
           setCountdownTimesWhite(nextTimes)
+          nextTimes === 1 && ttsService.speak(t('tts_countdown_last_white'))
+          ttsService.speak(t('tts_countdown_info_white', {seconds: config.countdownSeconds, times: nextTimes}))
         } else {
           setHasEnteredCountdownWhite(true)
+          ttsService.speak(t('tts_countdown_start_white'))
+          ttsService.speak(
+            t('tts_countdown_info_white', {seconds: config.countdownSeconds, times: countdownTimesWhite}),
+          )
         }
       } else {
         setGameStatus({isOver: true, isBlackWin: true})
         setIsPlaying(false)
+        ttsService.speak(t('tts_game_over_white'))
       }
+    }
+
+    if (isBlackTurn && secondsBlack > 0 && secondsBlack <= 10 && countdownTimesBlack === 1) {
+      ttsService.stop().then(() => {
+        ttsService.speak(`${secondsBlack}`)
+      })
+    } else if (!isBlackTurn && secondsWhite > 0 && secondsWhite <= 10 && countdownTimesWhite === 1) {
+      ttsService.stop().then(() => {
+        ttsService.speak(`${secondsWhite}`)
+      })
     }
 
     // ! for debug: test game over
     // setTimeout(() => {
     //   setGameStatus({isOver: true, isBlackWin: true})
     // }, 3000)
-  }, [
-    secondsBlack,
-    secondsWhite,
-    countdownTimesBlack,
-    countdownTimesWhite,
-    config.countdownSeconds,
-    hasEnteredCountdownBlack,
-    hasEnteredCountdownWhite,
-  ])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [secondsBlack, secondsWhite])
 
   useEffect(() => {
     const clear = () => {
@@ -74,6 +121,7 @@ export const useStatusCenter = () => {
 
     clear()
     if (isPlaying) {
+      playTurnMeVoice(isBlackTurn)
       timer.current = setInterval(() => {
         if (isBlackTurn) {
           setSecondsBlack(prev => prev - 1)
@@ -84,6 +132,7 @@ export const useStatusCenter = () => {
     }
 
     return () => clear()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isBlackTurn, isPlaying])
 
   const init = useCallback(() => {
@@ -99,6 +148,8 @@ export const useStatusCenter = () => {
     setHasEnteredCountdownWhite(!_config.basicSeconds)
     setIsPlaying(false)
     setIsBlackTurn(true)
+    isFirstFireBlack.current = false
+    isFirstFireWhite.current = false
     setGameStatus({isOver: false, isBlackWin: false})
   }, [config])
 
@@ -106,6 +157,9 @@ export const useStatusCenter = () => {
     init,
     setIsPlaying,
     setIsBlackTurn,
+    setIsStart,
+    setSecondsBlack,
+    setSecondsWhite,
     config,
     secondsBlack,
     secondsWhite,
@@ -113,6 +167,9 @@ export const useStatusCenter = () => {
     countdownTimesWhite,
     isPlaying,
     isBlackTurn,
+    isStart,
+    hasEnteredCountdownBlack,
+    hasEnteredCountdownWhite,
     gameStatus,
   }
 }
