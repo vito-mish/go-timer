@@ -1,52 +1,64 @@
-import {useActionSheet} from '@expo/react-native-action-sheet'
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
 import {images} from '../../../assets'
-import {LANGUAGE_CODES, LANGUAGE_OPTIONS, setLanguage} from '../../../i18n'
+import {config} from '../../../config/appConfig'
+import {useActionSheet} from '../../../hooks'
+import {LANGUAGE_OPTIONS, setLanguage} from '../../../i18n'
 import {defaultTimerConfig, ENTITY, storage, TimerConfig} from '../../../services'
-import {theme} from '../../../styles/theme'
 
 export const useConfigOptions = () => {
   const {t, i18n} = useTranslation()
-  const {showActionSheetWithOptions} = useActionSheet()
+  const {showActionSheet} = useActionSheet()
   const defaultConfig: TimerConfig = useMemo(() => {
     return storage.getData(ENTITY.TIMER_CONFIG) ?? {...defaultTimerConfig}
   }, [])
-  const [basicSeconds, setBasicSeconds] = useState(defaultConfig.basicSeconds)
+  const [basicMinutes, setBasicMinutes] = useState(defaultConfig.basicSeconds / 60)
   const [countdownSeconds, setCountdownSeconds] = useState(defaultConfig.countdownSeconds)
   const [countdownTimes, setCountdownTimes] = useState(defaultConfig.countdownTimes)
 
-  const handlePressLanguage = useCallback(() => {
-    const langNames = LANGUAGE_OPTIONS.map(item => item.name)
-    const zh = langNames[0]
-    const en = langNames[1]
-    const options = [zh, en, t('common_cancel')]
+  useEffect(() => {
+    storage.setData(ENTITY.TIMER_CONFIG, {
+      basicSeconds: basicMinutes * 60,
+      countdownSeconds,
+      countdownTimes,
+    })
+  }, [basicMinutes, countdownSeconds, countdownTimes])
 
-    showActionSheetWithOptions(
-      {
-        options,
-        cancelButtonIndex: 2,
-        cancelButtonTintColor: theme.colors.error[0],
-      },
-      (selectedIndex?: number): void => {
-        switch (selectedIndex) {
-          case 0:
-            setLanguage(LANGUAGE_CODES.ZH)
-            break
-          case 1:
-            setLanguage(LANGUAGE_CODES.EN)
-            break
-          default:
-            break
-        }
-      },
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t])
+  const handlePressBasicMinutes = useCallback(() => {
+    const options = config.optionsBasicMinutes.map(num => ({label: `${num}`, value: num}))
+    showActionSheet({
+      options,
+      onSelected: value => setBasicMinutes(value),
+    })
+  }, [showActionSheet])
+
+  const handlePressCountdownSeconds = useCallback(() => {
+    const options = config.optionsCountdownSeconds.map(num => ({label: `${num}`, value: num}))
+    showActionSheet({
+      options,
+      onSelected: value => setCountdownSeconds(value),
+    })
+  }, [showActionSheet])
+
+  const handlePressCountdownTimes = useCallback(() => {
+    const options = config.optionsCountdownTimes.map(num => ({label: `${num}`, value: num}))
+    showActionSheet({
+      options,
+      onSelected: value => setCountdownTimes(value),
+    })
+  }, [showActionSheet])
+
+  const handlePressLanguage = useCallback(() => {
+    const options = LANGUAGE_OPTIONS.map(item => ({label: item.name, value: item.key}))
+    showActionSheet({
+      options,
+      onSelected: value => setLanguage(value),
+    })
+  }, [showActionSheet])
 
   const data = useMemo(() => {
-    const list = [
+    return [
       {
         id: 'type_timer',
         title: t('settings_type_timer'),
@@ -54,23 +66,23 @@ export const useConfigOptions = () => {
           {
             id: 'timer_basic_seconds',
             title: t('settings_option_basic_time'),
-            value: basicSeconds,
+            value: basicMinutes,
             imageSrc: images.IconClock,
-            onPress: () => {},
+            onPress: handlePressBasicMinutes,
           },
           {
             id: 'timer_countdown_seconds',
             title: t('settings_option_countdown_seconds'),
             value: countdownSeconds,
             imageSrc: images.IconHourglass,
-            onPress: () => {},
+            onPress: handlePressCountdownSeconds,
           },
           {
             id: 'timer_countdown_times',
             title: t('settings_option_countdown_times'),
             value: countdownTimes,
             imageSrc: images.IconHeart,
-            onPress: () => {},
+            onPress: handlePressCountdownTimes,
           },
         ],
       },
@@ -88,8 +100,17 @@ export const useConfigOptions = () => {
         ],
       },
     ]
-    return list
-  }, [basicSeconds, countdownSeconds, countdownTimes, i18n.language, t, handlePressLanguage])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    basicMinutes,
+    countdownSeconds,
+    countdownTimes,
+    t,
+    handlePressBasicMinutes,
+    handlePressCountdownSeconds,
+    handlePressCountdownTimes,
+    handlePressLanguage,
+  ])
 
   return {data}
 }

@@ -5,7 +5,7 @@ export default {
   settings_title: '設定',
   settings_type_timer: '計時器設定',
   settings_type_other: '其它設定',
-  settings_option_basic_time: '基本時限',
+  settings_option_basic_time: '基本時限（分）',
   settings_option_countdown_seconds: '讀秒',
   settings_option_countdown_times: '次數',
   settings_option_language: '語言',

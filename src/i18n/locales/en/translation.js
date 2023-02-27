@@ -5,7 +5,7 @@ export default {
   settings_title: 'Settings',
   settings_type_timer: 'Timer Config',
   settings_type_other: 'Other Config',
-  settings_option_basic_time: 'Basic time',
+  settings_option_basic_time: 'Basic time (minutes)',
   settings_option_countdown_seconds: 'Countdown seconds',
   settings_option_countdown_times: 'Countdown times',
   settings_option_language: 'Language',
