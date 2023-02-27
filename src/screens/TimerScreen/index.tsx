@@ -3,14 +3,14 @@ import React, {FC, useCallback, useEffect, useState} from 'react'
 
 import {SafeAreaScreenBox} from '../../components'
 import {RootStackParamList, SCREENS} from '../../router/interfaces'
-import {ttsService} from '../../services'
+import {logger, ttsService} from '../../services'
 import {AlternateButton} from './AlternateButton'
 import {ToolButtons} from './ToolButtons'
 import {useStatusCenter} from './useStatusCenter'
 
 type ScreenType = FC<NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>>
 
-export const TimerScreen: ScreenType = ({navigation}) => {
+export const TimerScreen: ScreenType = ({navigation, route}) => {
   const {
     init,
     setIsPlaying,
@@ -35,6 +35,7 @@ export const TimerScreen: ScreenType = ({navigation}) => {
   const [moveCount, setMoveCount] = useState(1)
 
   const resetStatus = useCallback(() => {
+    logger.info('TimerScreen resetStatus')
     init()
     setMoveCount(1)
     setIsStart(false)
@@ -48,8 +49,16 @@ export const TimerScreen: ScreenType = ({navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (route.params?.message === 'action_reload') {
+      navigation.setParams({message: undefined})
+      resetStatus()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [route.params?.message])
+
   const handlePressSettings = useCallback(() => {
-    navigation.navigate(SCREENS.SETTINGS, {reloadTimer: resetStatus})
+    navigation.navigate(SCREENS.SETTINGS)
     setIsPlaying(false)
     ttsService.stop()
     // eslint-disable-next-line react-hooks/exhaustive-deps

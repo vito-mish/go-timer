@@ -11,13 +11,12 @@ import {OptionList} from './OptionList'
 
 type ScreenType = FC<NativeStackScreenProps<RootStackParamList, SCREENS.SETTINGS>>
 
-export const SettingsScreen: ScreenType = ({navigation, route}) => {
+export const SettingsScreen: ScreenType = ({navigation}) => {
   const {t} = useTranslation()
 
   const handleConfirm = useCallback(() => {
-    route?.params?.reloadTimer()
-    navigation.goBack()
-  }, [navigation, route.params])
+    navigation.navigate(SCREENS.TIMER, {message: 'action_reload'})
+  }, [navigation])
 
   return (
     <ScreenBox>
