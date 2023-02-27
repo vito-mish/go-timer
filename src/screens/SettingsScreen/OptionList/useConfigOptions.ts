@@ -5,13 +5,13 @@ import {images} from '../../../assets'
 import {config} from '../../../config/appConfig'
 import {useActionSheet} from '../../../hooks'
 import {LANGUAGE_OPTIONS, setLanguage} from '../../../i18n'
-import {defaultTimerConfig, ENTITY, storage, TimerConfig} from '../../../services'
+import {ENTITY, storage, TimerConfig} from '../../../services'
 
 export const useConfigOptions = () => {
   const {t, i18n} = useTranslation()
   const {showActionSheet} = useActionSheet()
   const defaultConfig: TimerConfig = useMemo(() => {
-    return storage.getData(ENTITY.TIMER_CONFIG) ?? {...defaultTimerConfig}
+    return storage.getData(ENTITY.TIMER_CONFIG) ?? {...config.defaultTimerConfig}
   }, [])
   const [basicMinutes, setBasicMinutes] = useState(defaultConfig.basicSeconds / 60)
   const [countdownSeconds, setCountdownSeconds] = useState(defaultConfig.countdownSeconds)

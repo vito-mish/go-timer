@@ -49,10 +49,11 @@ export const TimerScreen: ScreenType = ({navigation}) => {
   }, [])
 
   const handlePressSettings = useCallback(() => {
-    navigation.navigate(SCREENS.SETTINGS)
+    navigation.navigate(SCREENS.SETTINGS, {reloadTimer: resetStatus})
     setIsPlaying(false)
     ttsService.stop()
-  }, [navigation, setIsPlaying])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation, resetStatus])
 
   const handleTogglePlayer = useCallback(() => {
     if (isStart) {

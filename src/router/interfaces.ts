@@ -12,7 +12,7 @@ export enum SCREENS {
 // ref: https://reactnavigation.org/docs/typescript/
 export type RootStackParamList = {
   [SCREENS.TIMER]: undefined
-  [SCREENS.SETTINGS]: undefined
+  [SCREENS.SETTINGS]: undefined | {reloadTimer: () => void}
 }
 
 interface ScreenConfig {

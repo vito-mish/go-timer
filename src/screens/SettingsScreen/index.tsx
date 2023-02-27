@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
-import React, {FC} from 'react'
+import React, {FC, useCallback} from 'react'
 import {useTranslation} from 'react-i18next'
 import styled from 'styled-components/native'
 
@@ -11,14 +11,19 @@ import {OptionList} from './OptionList'
 
 type ScreenType = FC<NativeStackScreenProps<RootStackParamList, SCREENS.SETTINGS>>
 
-export const SettingsScreen: ScreenType = ({navigation}) => {
+export const SettingsScreen: ScreenType = ({navigation, route}) => {
   const {t} = useTranslation()
+
+  const handleConfirm = useCallback(() => {
+    route?.params?.reloadTimer()
+    navigation.goBack()
+  }, [navigation, route.params])
 
   return (
     <ScreenBox>
       <OptionList />
       <AppText>{`v${config.appVersion}`}</AppText>
-      <Button mx={4} title={t('common_confirm')} onPress={() => navigation.goBack()} />
+      <Button mx={4} title={t('common_confirm')} onPress={handleConfirm} />
     </ScreenBox>
   )
 }

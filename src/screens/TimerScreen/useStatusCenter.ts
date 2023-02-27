@@ -1,18 +1,14 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 
-import {defaultTimerConfig, ENTITY, storage, StorageValueType, ttsService} from '../../services'
+import {config as appConfig} from '../../config/appConfig'
+import {ENTITY, storage, StorageValueType, ttsService} from '../../services'
 import {useSoundPlayer} from './useSoundPlayer'
 
 export const useStatusCenter = () => {
   const {t} = useTranslation()
   const {playClick} = useSoundPlayer()
-  const [config, setConfig] = useState({
-    ...defaultTimerConfig,
-    // basicSeconds: 10, // ! for debug
-    // countdownSeconds: 10, // ! for debug
-    // countdownTimes: 2, // ! for debug
-  })
+  const [config, setConfig] = useState({...appConfig.defaultTimerConfig})
   const [secondsBlack, setSecondsBlack] = useState(config.basicSeconds)
   const [secondsWhite, setSecondsWhite] = useState(config.basicSeconds)
   const [countdownTimesBlack, setCountdownTimesBlack] = useState(config.countdownTimes)
