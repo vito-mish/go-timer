@@ -6,6 +6,7 @@ import {RootStackParamList, SCREENS} from '../../router/interfaces'
 import {logger, ttsService} from '../../services'
 import {AlternateButton} from './AlternateButton'
 import {ToolButtons} from './ToolButtons'
+import {useSoundPlayer} from './useSoundPlayer'
 import {useStatusCenter} from './useStatusCenter'
 
 type ScreenType = FC<NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>>
@@ -30,6 +31,7 @@ export const TimerScreen: ScreenType = ({navigation, route}) => {
     hasEnteredCountdownWhite,
     gameStatus,
   } = useStatusCenter()
+  const {playClick} = useSoundPlayer()
 
   const [isReady, setIsReady] = useState(false)
   const [moveCount, setMoveCount] = useState(1)
@@ -65,6 +67,7 @@ export const TimerScreen: ScreenType = ({navigation, route}) => {
   }, [navigation, resetStatus])
 
   const handleTogglePlayer = useCallback(() => {
+    playClick()
     if (isStart) {
       setIsBlackTurn(prev => !prev)
       setMoveCount(prev => prev + 1)

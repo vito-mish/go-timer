@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:release": "react-native run-android --mode=release",
     "ios": "react-native run-ios --simulator='iPhone 14'",
     "release:android": "npm run cp:node_modules && cd android && ./gradlew bundleRelease && cd ..",
     "lint": "eslint .",

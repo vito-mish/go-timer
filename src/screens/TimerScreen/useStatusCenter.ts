@@ -3,11 +3,9 @@ import {useTranslation} from 'react-i18next'
 
 import {config as appConfig} from '../../config/appConfig'
 import {ENTITY, storage, StorageValueType, ttsService} from '../../services'
-import {useSoundPlayer} from './useSoundPlayer'
 
 export const useStatusCenter = () => {
   const {t} = useTranslation()
-  const {playClick} = useSoundPlayer()
   const [config, setConfig] = useState({...appConfig.defaultTimerConfig})
   const [secondsBlack, setSecondsBlack] = useState(config.basicSeconds)
   const [secondsWhite, setSecondsWhite] = useState(config.basicSeconds)
@@ -35,8 +33,6 @@ export const useStatusCenter = () => {
         ttsService.speak(t('tts_countdown_info_black', {seconds: config.countdownSeconds, times: countdownTimesBlack}))
       } else if (!isBTurn && hasEnteredCountdownWhite) {
         ttsService.speak(t('tts_countdown_info_white', {seconds: config.countdownSeconds, times: countdownTimesWhite}))
-      } else {
-        playClick()
       }
     },
     [
@@ -45,7 +41,6 @@ export const useStatusCenter = () => {
       countdownTimesWhite,
       hasEnteredCountdownBlack,
       hasEnteredCountdownWhite,
-      playClick,
       t,
     ],
   )
