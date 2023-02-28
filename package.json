@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator='iPhone 14'",
+    "release:android": "npm run cp:node_modules && cd android && ./gradlew bundleRelease && cd ..",
     "lint": "eslint .",
     "start": "react-native start",
     "start:reset-cache": "react-native start --reset-cache",
@@ -19,6 +20,7 @@
     "avd:turn-on-device": "emulator -avd Pixel_6_API_31",
     "eslint:fix": "eslint src --fix",
     "eslint:check": "eslint src",
+    "cp:android": "cp -rf ../__android__/* ./android",
     "cp:node_modules": "cp -rf ./__node_modules__/* ./node_modules"
   },
   "dependencies": {
