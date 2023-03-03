@@ -13,8 +13,8 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-GoTimer-GoTimerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-GoTimer-GoTimerTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A39EB7A729AB722700BF9C47 /* sound_click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A39EB7A629AB722700BF9C47 /* sound_click.mp3 */; };
+		A3C9A7AB29B25D4B004DCACB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3C9A7AA29B25D4B004DCACB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,9 +42,9 @@
 		5709B34CF0A7D63546082F79 /* Pods-GoTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoTimer.release.xcconfig"; path = "Target Support Files/Pods-GoTimer/Pods-GoTimer.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-GoTimer-GoTimerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoTimer-GoTimerTests.debug.xcconfig"; path = "Target Support Files/Pods-GoTimer-GoTimerTests/Pods-GoTimer-GoTimerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-GoTimer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoTimer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GoTimer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-GoTimer-GoTimerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoTimer-GoTimerTests.release.xcconfig"; path = "Target Support Files/Pods-GoTimer-GoTimerTests/Pods-GoTimer-GoTimerTests.release.xcconfig"; sourceTree = "<group>"; };
 		A39EB7A629AB722700BF9C47 /* sound_click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sound_click.mp3; path = ../android/app/src/main/res/raw/sound_click.mp3; sourceTree = "<group>"; };
+		A3C9A7AA29B25D4B004DCACB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GoTimer/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -93,8 +93,8 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				A3C9A7AA29B25D4B004DCACB /* LaunchScreen.storyboard */,
 			);
 			name = GoTimer;
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				A3C9A7AB29B25D4B004DCACB /* LaunchScreen.storyboard in Resources */,
 				A39EB7A729AB722700BF9C47 /* sound_click.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
