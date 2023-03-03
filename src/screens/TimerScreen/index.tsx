@@ -3,7 +3,7 @@ import React, {FC, useCallback, useEffect, useState} from 'react'
 
 import {SafeAreaScreenBox} from '../../components'
 import {RootStackParamList, SCREENS} from '../../router/interfaces'
-import {logger, ttsService} from '../../services'
+import {logger, ttsService, useAdMob} from '../../services'
 import {AlternateButton} from './AlternateButton'
 import {ToolButtons} from './ToolButtons'
 import {useSoundPlayer} from './useSoundPlayer'
@@ -12,6 +12,7 @@ import {useStatusCenter} from './useStatusCenter'
 type ScreenType = FC<NativeStackScreenProps<RootStackParamList, SCREENS.TIMER>>
 
 export const TimerScreen: ScreenType = ({navigation, route}) => {
+  const {showAd} = useAdMob()
   const {
     init,
     setIsPlaying,
@@ -32,7 +33,6 @@ export const TimerScreen: ScreenType = ({navigation, route}) => {
     gameStatus,
   } = useStatusCenter()
   const {playClick} = useSoundPlayer()
-
   const [isReady, setIsReady] = useState(false)
   const [moveCount, setMoveCount] = useState(1)
 
@@ -43,8 +43,11 @@ export const TimerScreen: ScreenType = ({navigation, route}) => {
     setIsStart(false)
     setIsReady(true)
     ttsService.stop()
+    if (isReady) {
+      showAd()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [init])
+  }, [init, isReady])
 
   useEffect(() => {
     resetStatus()

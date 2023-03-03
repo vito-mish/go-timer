@@ -1,4 +1,8 @@
 {
   "name": "GoTimer",
-  "displayName": "GoTimer"
+  "displayName": "GoTimer",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1623587656477694~8055428265",
+    "ios_app_id": "ca-app-pub-1623587656477694~8280759167"
+  }
 }
