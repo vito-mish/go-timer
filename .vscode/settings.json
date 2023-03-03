@@ -4,5 +4,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "cSpell.words": ["Flexbox", "xalign", "yalign"]
+  "cSpell.words": ["Flexbox", "gradlew", "xalign", "xcrun", "xcworkspace", "yalign"]
 }

@@ -1,4 +1,4 @@
-package com.gotimer;
+package com.vito.gotimer;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
