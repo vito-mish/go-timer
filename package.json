@@ -15,6 +15,8 @@
     "pod:install": "npx pod-install ios",
     "generate:assets": "node ./scripts/generate-assets-import",
     "gradlew:clean": "cd android && ./gradlew clean && cd ..",
+    "git:android-key:change-no-track": "git update-index --assume-unchanged android/gradle.properties",
+    "git:android-key:change-track": "git update-index --no-assume-unchanged android/gradle.properties",
     "xcrun:simctl-list-devices": "xcrun simctl list devices",
     "open:xc": "open ios/GoTimer.xcworkspace",
     "adb:devices": "adb devices",
