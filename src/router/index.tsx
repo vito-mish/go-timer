@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next'
 import styled from 'styled-components/native'
 
 import {Box, Images} from '../components'
+import {theme} from '../styles/theme'
 import {RootStackParamList, SCREENS, screens} from './interfaces'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -36,6 +37,11 @@ export const Router = () => {
                 headerTitle: `${t(`${item.name}_title`)}`,
                 headerTitleAlign: 'center',
                 headerLeft: HeaderLeft,
+                headerTitleStyle: {
+                  fontSize: 17,
+                  fontWeight: '400',
+                  color: theme.colors.gray[0],
+                },
               }}
             />
           )

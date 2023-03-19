@@ -45,6 +45,7 @@ export const Text: FC<TextProps> = ({size = 2, weight = 0, bold, align, selectab
       textAlign={align}
       textDecorationLine={onPress ? 'underline' : 'none'}
       maxFontSizeMultiplier={1.5}
+      allowFontScaling={false}
       selectable={isSelectable}
       onPress={handlePress}
       {...rest}
